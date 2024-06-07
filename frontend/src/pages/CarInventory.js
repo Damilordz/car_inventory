@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../axiosConfig";
 import CarForm from "../components/CarForm";
 import CarTable from "../components/CarTable";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Alert } from "react-bootstrap";
 
 // CarInventory component
 const CarInventory = () => {
@@ -23,6 +23,7 @@ const CarInventory = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingCarId, setEditingCarId] = useState(null);
   const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("success");
   const [loading, setLoading] = useState(true);
 
   // Function to fetch the welcome message
@@ -86,8 +87,9 @@ const CarInventory = () => {
         address: "",
       });
       fetchCars(); // Fetch the updated list of cars
+      setAlertVariant("success"); // Set variant to success for add action
       // Show success message to the user
-      setAlertMessage("Document added successfully!");
+      setAlertMessage("Car details added successfully!");
       setTimeout(() => setAlertMessage(""), 3000); // Clear the alert after 3 seconds
       console.log("i got clicked");
     } catch (error) {
@@ -119,7 +121,8 @@ const CarInventory = () => {
         address: "",
       });
       fetchCars(); // Fetch the updated list of cars
-      setAlertMessage("Document updated successfully!");
+      setAlertVariant("success"); // Set variant to success for add action
+      setAlertMessage("Car details updated successfully!");
       setTimeout(() => setAlertMessage(""), 3000); // Clear the alert after 3 seconds
     } catch (error) {
       console.error("Error updating car:", error); // Log any errors that occur during the update operation
@@ -131,7 +134,8 @@ const CarInventory = () => {
     try {
       await axios.delete(`/cars/${carId}`); // Send a DELETE request to delete the car
       fetchCars(); // Fetch the updated list of cars
-      setAlertMessage("Document deleted successfully!");
+      setAlertVariant("danger"); // Set variant to danger for delete action
+      setAlertMessage("Car deleted successfully!");
       setTimeout(() => setAlertMessage(""), 3000); // Clear the alert after 3 seconds
     } catch (error) {
       console.error("Error deleting car:", error); // Log any errors that occur during the delete operation
@@ -156,10 +160,15 @@ const CarInventory = () => {
     <div className="container my-5 car-inventory">
       <h1 className="mb-4">Car Inventory</h1>
       {alertMessage && (
-        <div className="alert alert-success" role="alert">
+        <Alert
+          variant={alertVariant}
+          onClose={() => setAlertMessage("")}
+          dismissible
+        >
           {alertMessage}
-        </div>
+        </Alert>
       )}
+
       <div className="car-form mb-4">
         <CarForm
           handleInputChange={handleInputChange}
