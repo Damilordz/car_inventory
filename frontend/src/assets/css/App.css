@@ -23,3 +23,28 @@
 .form-details > div{
   flex: 1 1 48%;
 }
+
+.edit-btn {
+  margin-right: .5rem;
+}
+
+@media (max-width: 600px) {
+  table {
+    font-size: 3vw;
+  }
+
+  .delete-btn {
+    margin-top: 0.5rem;
+    font-size: 3vw !important;
+    margin-left: 0 !important;
+  }
+
+  .edit-btn {
+    font-size: 3vw !important;
+  }
+
+  .table > tbody > tr > td,
+  .table > thead > tr > th {
+    padding-left: 0 !important;
+  }
+}

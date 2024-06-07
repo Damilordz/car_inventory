@@ -2,7 +2,7 @@ import React from "react";
 
 const CarTable = ({ cars, onEdit, onDelete }) => {
   return (
-    <table className="table" striped bordered hover>
+    <table className="table">
       <thead>
         <tr>
           <th>Owner</th>
@@ -22,13 +22,13 @@ const CarTable = ({ cars, onEdit, onDelete }) => {
             <td>
               <button
                 onClick={() => onEdit(car)}
-                className="btn btn-info"
+                className="btn btn-info edit-btn"
               >
                 Edit
               </button>
               <button
                 onClick={() => onDelete(car._id)}
-                className="btn btn-danger mx-2"
+                className="btn btn-danger delete-btn "
               >
                 Delete
               </button>
