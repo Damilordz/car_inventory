@@ -1,0 +1,25 @@
+.App{
+  /* border: 1px solid red; */
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.car-inventory{
+  /* border: 1px solid forestgreen; */
+  text-align: center;
+}
+
+.form-details{
+  /* border: 1px solid brown; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-details > div{
+  flex: 1 1 48%;
+}
