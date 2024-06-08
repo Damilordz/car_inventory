@@ -25,6 +25,7 @@ const CarInventory = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("success");
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(""); // State for managing fetch errors
 
   // Function to fetch the welcome message
   const fetchWelcomeMessage = async () => {
@@ -50,6 +51,7 @@ const CarInventory = () => {
       setLoading(false); // Set loading to false when data is fetched
     } catch (error) {
       console.error("Error fetching cars:", error);
+      setFetchError("Unable to fetch car details. Please try again later.");
       setLoading(false); // Set loading to false even if an error occurs
     }
   };
@@ -61,6 +63,7 @@ const CarInventory = () => {
       setLoading(false); // Set loading to false when data is fetched
     } catch (error) {
       console.error("Error fetching old cars:", error);
+      setFetchError("Unable to fetch old car details. Please try again later.");
       setLoading(false); // Set loading to false even if an error occurs
     }
   };
@@ -193,6 +196,10 @@ const CarInventory = () => {
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
+        </div>
+      ) : fetchError ? (
+        <div className="mt-4">
+          <Alert variant="danger">{fetchError}</Alert>
         </div>
       ) : (
         <CarTable cars={cars} onEdit={editCar} onDelete={deleteCar} />
