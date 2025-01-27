@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function CarForm(props) {
   return (
@@ -88,5 +89,17 @@ function CarForm(props) {
     </form>
   );
 }
+CarForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func,
+  make: PropTypes.string.isRequired,
+  model: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  registrationNumber: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+};
 
 export default CarForm;

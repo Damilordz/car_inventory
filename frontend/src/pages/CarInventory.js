@@ -44,14 +44,22 @@ const CarInventory = () => {
     fetchWelcomeMessage(); // Fetch the welcome message when the component mounts
   }, []);
 
+  // Function to fetch cars
   const fetchCars = async () => {
     try {
       const response = await axios.get("/cars"); // Send a GET request to retrieve all cars
-      setCars(response.data); // Update the cars state with the fetched data
+      if (response.data.length === 0) {
+        // Check if the response data is empty
+        setFetchError("No cars available in the inventory."); // Set the no cars message
+        setCars([]); // Ensure cars state is empty
+      } else {
+        setCars(response.data); // Update the cars state with the fetched data
+        setFetchError(""); // Clear any previous error messages
+      }
       setLoading(false); // Set loading to false when data is fetched
     } catch (error) {
       console.error("Error fetching cars:", error);
-      setFetchError("Unable to fetch car details. Please try again later.");
+      setFetchError("Unable to fetch car details. Please try again later."); // Set the error message
       setLoading(false); // Set loading to false even if an error occurs
     }
   };
@@ -76,7 +84,6 @@ const CarInventory = () => {
   // Function to add a new car
   const addCar = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-
     try {
       // Make a POST request to add a new car
       await axios.post("/cars", newCar);
@@ -94,7 +101,6 @@ const CarInventory = () => {
       // Show success message to the user
       setAlertMessage("Car details added successfully!");
       setTimeout(() => setAlertMessage(""), 3000); // Clear the alert after 3 seconds
-      console.log("i got clicked");
     } catch (error) {
       console.error("Error adding car:", error); // Log any errors that occur during the add operation
     }
@@ -196,6 +202,10 @@ const CarInventory = () => {
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
+        </div>
+      ) : fetchError === "No cars available in the inventory." ? (
+        <div className="mt-4">
+          <Alert variant="info">{fetchError}</Alert>
         </div>
       ) : fetchError ? (
         <div className="mt-4">

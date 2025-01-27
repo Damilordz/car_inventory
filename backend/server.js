@@ -19,13 +19,14 @@ app.use(
     credentials: true,
   })
 ); // Enable CORS for all routes
+
 app.use(bodyParser.json()); // Parse JSON request bodies
 
 // MongoDB connection string
 // Get credentials and database name from environment variables
 const username = process.env.MONGO_USER;
 const password = process.env.MONGO_PASSWORD;
-const dbName = process.env.MONGO_DB_NAME || "test";
+const dbName = process.env.MONGO_DB_NAME || "car_inventory";
 
 // Construct MongoDB URI using credentials and database name
 const uri = `mongodb+srv://${username}:${password}@cluster0.1uz5agr.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=Cluster0`;

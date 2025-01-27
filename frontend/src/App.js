@@ -1,3 +1,4 @@
+import React from "react";
 import "./assets/css/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CarInventory from "./pages/CarInventory";

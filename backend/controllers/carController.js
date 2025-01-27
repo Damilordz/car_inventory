@@ -14,7 +14,9 @@ export const addCar = async (req, res) => {
 // Update a single car
 export const updateCar = async (req, res) => {
   try {
-    const updatedCar = await Car.findByIdAndUpdate(req.params.id, req.body, { new: true }); // Find the car by ID and update it with the request body, returning the updated document
+    const updatedCar = await Car.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    }); // Find the car by ID and update it with the request body, returning the updated document
     if (!updatedCar) return res.status(404).send(); // If the car is not found, send a 404 Not Found status
     res.send(updatedCar); // Send the updated car as the response
   } catch (err) {
@@ -58,7 +60,10 @@ export const listCars = async (req, res) => {
 export const listOldCars = async (req, res) => {
   try {
     const currentYear = new Date().getFullYear(); // Get the current year
-    const oldCars = await Car.find({ year: { $lt: currentYear - 5 } }, 'make model registrationNumber owner'); // Find cars where the year is less than 5 years ago
+    const oldCars = await Car.find(
+      { year: { $lt: currentYear - 5 } },
+      "make model year registrationNumber owner"
+    ); // Find cars where the year is less than 5 years ago
     res.send(oldCars); // Send the list of old cars as the response
   } catch (err) {
     res.status(400).send(err); // If there's an error, send a 400 Bad Request status with the error

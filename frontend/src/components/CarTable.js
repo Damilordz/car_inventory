@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const CarTable = ({ cars, onEdit, onDelete }) => {
   return (
@@ -38,6 +39,18 @@ const CarTable = ({ cars, onEdit, onDelete }) => {
       </tbody>
     </table>
   );
+};
+CarTable.propTypes = {
+  cars: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    owner: PropTypes.string.isRequired,
+    make: PropTypes.string.isRequired,
+    model: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    registrationNumber: PropTypes.string.isRequired,
+  })).isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default CarTable;
